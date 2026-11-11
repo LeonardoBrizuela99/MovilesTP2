@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.AI;
 
 public class GameEvents : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class GameEvents : MonoBehaviour
     }
 
     public event Action onKnifeCollision;
+    public event Action onKnifeWin;
 
     public void OnKnifeCollision()
     {
@@ -22,6 +24,15 @@ public class GameEvents : MonoBehaviour
         {
             Debug.Log("entro al bucle");
             onKnifeCollision.Invoke();
+        }
+
+    }
+
+    public void OnKnifeWin()
+    {
+        if (onKnifeWin!=null)
+        {
+            onKnifeWin.Invoke();
         }
     }
 }

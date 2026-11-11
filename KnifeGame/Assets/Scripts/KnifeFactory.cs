@@ -1,8 +1,11 @@
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 
 public class KnifeFactory : MonoBehaviour
 {
     [SerializeField] GameObject knife;
+    [SerializeField] Spin wheel;
+    [SerializeField]Transform pos;
 
     private void Start()
     {
@@ -11,7 +14,12 @@ public class KnifeFactory : MonoBehaviour
 
     private void OnKnifeCollider()
     {
-        GameObject.Instantiate(knife);
-        Debug.Log("se creo un cuchillo");
+        if (wheel.knifeCount<=4)
+        {
+         GameObject.Instantiate(knife,pos.position,Quaternion.identity);
+         Debug.Log("se creo un cuchillo");
+
+        }
     }
+   
 }
