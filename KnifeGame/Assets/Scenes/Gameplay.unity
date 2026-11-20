@@ -468,10 +468,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   levels:
   - {fileID: 11400000, guid: 057da7cb381e5184ca00826c738d1c99, type: 2}
+  - {fileID: 11400000, guid: b0d3ca22e3d0c0c458617908f77e47c2, type: 2}
+  - {fileID: 11400000, guid: 19f2d52211865b04abe3916ef3b0d152, type: 2}
   log: {fileID: 1251679042}
   thrower: {fileID: 1228037024}
   applePrefab: {fileID: -1893280718023798282, guid: 06840facbcd9a85438db5850e390db8a, type: 3}
-  nextLevelDelay: 1.2
+  nextLevelDelay: 0.5
 --- !u!114 &1228037024
 MonoBehaviour:
   m_ObjectHideFlags: 0
