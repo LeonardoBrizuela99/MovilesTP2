@@ -15,8 +15,8 @@ MonoBehaviour:
   knivesToThrow: 6
   rotation:
   - speed: 150
-    duration: 4
+    duration: 2
   preStuckKnives: 3
-  apples: 3
+  apples: 2
   isBoss: 0
   logSprite: {fileID: 0}

@@ -30,7 +30,8 @@ public class GameManager : MonoBehaviour
         GameEvents.current.OnAppleHit += HandleAppleHit;
         GameEvents.current.ApplesChanged(Apples);
 
-        StartLevel(Mathf.Clamp(PlayerPrefs.GetInt(MaxLevelKey, 0), 0, levels.Length - 1));
+        //StartLevel(Mathf.Clamp(PlayerPrefs.GetInt(MaxLevelKey, 0), 0, levels.Length - 1));
+        StartLevel(0);
     }
 
     private void OnDestroy()
@@ -128,6 +129,7 @@ public class GameManager : MonoBehaviour
             gm.thrower.BeginLevel(gm.CurrentLevel.knivesToThrow);
             gm.SetupLevelObjects();
             GameEvents.current.LevelStarted(gm.LevelIndex);
+            Debug.Log(gm.LevelIndex);
         }
 
         public override void OnKnifeStuck()
