@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4921621910704165318}
   - component: {fileID: 83434276512924742}
   - component: {fileID: 964722982295287547}
+  - component: {fileID: 6704054813206335156}
   m_Layer: 0
   m_Name: knife
   m_TagString: Untagged
@@ -182,3 +183,16 @@ MonoBehaviour:
   rb: {fileID: 4921621910704165318}
   col: {fileID: 83434276512924742}
   speed: 30
+--- !u!114 &6704054813206335156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3936254075277869646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9785876a8bc68e2429a6aba83256a183, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KnifeSkinApplier
+  sr: {fileID: 6050216978162730251}
