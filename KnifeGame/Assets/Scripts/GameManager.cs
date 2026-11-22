@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] KnifeThrower thrower;
     [SerializeField] Apple applePrefab;
     [SerializeField] float nextLevelDelay = 1.2f;
+    [SerializeField] float loseRetryDelay = 3f;
+
 
     public int LevelIndex { get; private set; }
     public int Apples { get; private set; }
@@ -60,6 +62,7 @@ public class GameManager : MonoBehaviour
         Apples++;
         PlayerPrefs.SetInt(ApplesKey, Apples);
         GameEvents.current.ApplesChanged(Apples);
+        Debug.Log(Apples);
     }
 
     void ChangeState(GameState newState)
@@ -129,7 +132,7 @@ public class GameManager : MonoBehaviour
             gm.thrower.BeginLevel(gm.CurrentLevel.knivesToThrow);
             gm.SetupLevelObjects();
             GameEvents.current.LevelStarted(gm.LevelIndex);
-            Debug.Log(gm.LevelIndex);
+           
         }
 
         public override void OnKnifeStuck()
@@ -142,6 +145,8 @@ public class GameManager : MonoBehaviour
         public override void OnKnifeHitKnife()
         {
             gm.ChangeState(new LostState(gm));
+
+
         }
     }
 
@@ -161,6 +166,7 @@ public class GameManager : MonoBehaviour
 
             GameEvents.current.LevelWon(gm.LevelIndex);
             gm.StartCoroutine(GoNext(next));
+            
         }
 
         IEnumerator GoNext(int next)
@@ -184,6 +190,13 @@ public class GameManager : MonoBehaviour
             gm.Vibrate();
             PlayerPrefs.Save();
             GameEvents.current.LevelLost();
+            gm.StartCoroutine(RetryAfterDelay());
+        }
+
+        IEnumerator RetryAfterDelay()
+        {
+            yield return new WaitForSeconds(gm.loseRetryDelay);
+            gm.Retry();
         }
     }
 }
