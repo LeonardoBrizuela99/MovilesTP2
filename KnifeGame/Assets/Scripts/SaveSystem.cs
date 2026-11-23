@@ -1,14 +1,35 @@
 using UnityEngine;
 
-public static class SkinSave
+public static class SaveSystem
 {
-    const string ApplesKey = "apples";        
+    const string ApplesKey = "apples";
+    const string MaxLevelKey = "maxLevel";
+    const string TutorialKey = "tutorialDone";
     const string SelectedKey = "selectedSkin";
     const string OwnedPrefix = "owned_";
 
     static KnifeSkin[] allSkins;
     static KnifeSkin cachedSelected;
 
+    public static int Apples
+    {
+        get => PlayerPrefs.GetInt(ApplesKey, 0);
+        set { PlayerPrefs.SetInt(ApplesKey, value); PlayerPrefs.Save(); }
+    }
+
+    public static int MaxLevel
+    {
+        get => PlayerPrefs.GetInt(MaxLevelKey, 0);
+        set { PlayerPrefs.SetInt(MaxLevelKey, value); PlayerPrefs.Save(); }
+    }
+
+    public static bool TutorialDone
+    {
+        get => PlayerPrefs.GetInt(TutorialKey, 0) == 1;
+        set { PlayerPrefs.SetInt(TutorialKey, value ? 1 : 0); PlayerPrefs.Save(); }
+    }
+
+ 
     public static KnifeSkin[] AllSkins
     {
         get
@@ -20,12 +41,6 @@ public static class SkinSave
             }
             return allSkins;
         }
-    }
-
-    public static int Apples
-    {
-        get => PlayerPrefs.GetInt(ApplesKey, 0);
-        set { PlayerPrefs.SetInt(ApplesKey, value); PlayerPrefs.Save(); }
     }
 
     public static bool IsOwned(KnifeSkin skin) =>

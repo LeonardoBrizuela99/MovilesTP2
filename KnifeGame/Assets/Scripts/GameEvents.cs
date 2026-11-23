@@ -13,7 +13,8 @@ public class GameEvents : MonoBehaviour
     public event Action<int> OnLevelStarted;      
     public event Action<int> OnLevelWon;           
     public event Action OnLevelLost;
-    public event Action OnGameCompleted;          
+    public event Action OnGameCompleted;
+    public event Action OnKnifeThrown;
 
     private void Awake()
     {
@@ -34,4 +35,5 @@ public class GameEvents : MonoBehaviour
     public void LevelWon(int index) => OnLevelWon?.Invoke(index);
     public void LevelLost() => OnLevelLost?.Invoke();
     public void GameCompleted() => OnGameCompleted?.Invoke();
+    public void KnifeThrown() => OnKnifeThrown?.Invoke();
 }

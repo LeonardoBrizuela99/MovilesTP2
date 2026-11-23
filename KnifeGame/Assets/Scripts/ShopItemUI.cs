@@ -23,12 +23,12 @@ public class ShopItemUI : MonoBehaviour
 
     public void Refresh()
     {
-        if (SkinSave.GetSelected() == skin)
+        if (SaveSystem.GetSelected() == skin)
         {
             buttonText.text = "Using";
             button.interactable = false;
         }
-        else if (SkinSave.IsOwned(skin))
+        else if (SaveSystem.IsOwned(skin))
         {
             buttonText.text = "use";
             button.interactable = true;
@@ -36,7 +36,7 @@ public class ShopItemUI : MonoBehaviour
         else
         {
             buttonText.text = "Buy";
-            button.interactable = SkinSave.Apples >= skin.price;
+            button.interactable = SaveSystem.Apples >= skin.price;
         }
     }
 }

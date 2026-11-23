@@ -12,7 +12,7 @@ public class KnifeSkinApplier : MonoBehaviour
 
     private void OnEnable()
     {
-        KnifeSkin skin = SkinSave.GetSelected();
+        KnifeSkin skin = SaveSystem.GetSelected();
         if (skin == null) return;
 
         sr.color = skin.color;

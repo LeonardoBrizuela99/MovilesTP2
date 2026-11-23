@@ -2,19 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class GameManager : MonoBehaviour
 {
-    const string ApplesKey = "apples";
-    const string MaxLevelKey = "maxLevel";
-
     [SerializeField] LevelData[] levels;
     [SerializeField] Log log;
     [SerializeField] KnifeThrower thrower;
     [SerializeField] Apple applePrefab;
     [SerializeField] float nextLevelDelay = 1.2f;
     [SerializeField] float loseRetryDelay = 3f;
-
 
     public int LevelIndex { get; private set; }
     public int Apples { get; private set; }
@@ -26,13 +21,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Apples = PlayerPrefs.GetInt(ApplesKey, 0);
+        Apples = SaveSystem.Apples;
         GameEvents.current.OnKnifeStuck += HandleKnifeStuck;
         GameEvents.current.OnKnifeHitKnife += HandleKnifeHitKnife;
         GameEvents.current.OnAppleHit += HandleAppleHit;
         GameEvents.current.ApplesChanged(Apples);
 
-        //StartLevel(Mathf.Clamp(PlayerPrefs.GetInt(MaxLevelKey, 0), 0, levels.Length - 1));
         StartLevel(0);
     }
 
@@ -44,7 +38,6 @@ public class GameManager : MonoBehaviour
         GameEvents.current.OnAppleHit -= HandleAppleHit;
     }
 
-  
     public void StartLevel(int index)
     {
         LevelIndex = index;
@@ -53,16 +46,14 @@ public class GameManager : MonoBehaviour
 
     public void Retry() => StartLevel(LevelIndex);
 
-  
     void HandleKnifeStuck() => state?.OnKnifeStuck();
     void HandleKnifeHitKnife() => state?.OnKnifeHitKnife();
 
     void HandleAppleHit()
     {
         Apples++;
-        PlayerPrefs.SetInt(ApplesKey, Apples);
+        SaveSystem.Apples = Apples;
         GameEvents.current.ApplesChanged(Apples);
-        Debug.Log(Apples);
     }
 
     void ChangeState(GameState newState)
@@ -75,7 +66,7 @@ public class GameManager : MonoBehaviour
     void Vibrate()
     {
 #if UNITY_ANDROID || UNITY_IOS
-        Handheld.Vibrate(); 
+        Handheld.Vibrate();
 #endif
     }
 
@@ -110,7 +101,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-   
     abstract class GameState
     {
         protected readonly GameManager gm;
@@ -132,7 +122,6 @@ public class GameManager : MonoBehaviour
             gm.thrower.BeginLevel(gm.CurrentLevel.knivesToThrow);
             gm.SetupLevelObjects();
             GameEvents.current.LevelStarted(gm.LevelIndex);
-           
         }
 
         public override void OnKnifeStuck()
@@ -145,8 +134,6 @@ public class GameManager : MonoBehaviour
         public override void OnKnifeHitKnife()
         {
             gm.ChangeState(new LostState(gm));
-
-
         }
     }
 
@@ -160,13 +147,11 @@ public class GameManager : MonoBehaviour
             gm.log.Stop();
 
             int next = gm.LevelIndex + 1;
-            if (next > PlayerPrefs.GetInt(MaxLevelKey, 0) && next < gm.levels.Length)
-                PlayerPrefs.SetInt(MaxLevelKey, next);
-            PlayerPrefs.Save();
+            if (next > SaveSystem.MaxLevel && next < gm.levels.Length)
+                SaveSystem.MaxLevel = next;
 
             GameEvents.current.LevelWon(gm.LevelIndex);
             gm.StartCoroutine(GoNext(next));
-            
         }
 
         IEnumerator GoNext(int next)
@@ -188,7 +173,6 @@ public class GameManager : MonoBehaviour
             gm.thrower.StopThrowing();
             gm.log.Stop();
             gm.Vibrate();
-            PlayerPrefs.Save();
             GameEvents.current.LevelLost();
             gm.StartCoroutine(RetryAfterDelay());
         }

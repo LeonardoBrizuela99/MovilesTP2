@@ -14,20 +14,20 @@ public class ShopManager : MonoBehaviour
 
     public void OnItemClicked(KnifeSkin skin)
     {
-        if (!SkinSave.IsOwned(skin))
+        if (!SaveSystem.IsOwned(skin))
         {
-            if (SkinSave.Apples < skin.price) return;
-            SkinSave.Apples -= skin.price;
-            SkinSave.SetOwned(skin);
+            if (SaveSystem.Apples < skin.price) return;
+            SaveSystem.Apples -= skin.price;
+            SaveSystem.SetOwned(skin);
         }
 
-        SkinSave.Select(skin);
+        SaveSystem.Select(skin);
         RefreshAll();
     }
 
     void RefreshAll()
     {
-        applesText.text = SkinSave.Apples.ToString();
+        applesText.text = SaveSystem.Apples.ToString();
         foreach (ShopItemUI item in items) item.Refresh();
     }
 }
