@@ -25,6 +25,11 @@
 public static class GPGSIds
 {
         public const string achievement_primer_inicio = "CgkInPbDl8UaEAIQAQ"; // <GPGSID>
+        public const string achievement_game_complete = "CgkInPbDl8UaEAIQAw"; // <GPGSID>
+        public const string leaderboard_highest_level = "CgkInPbDl8UaEAIQBg"; // <GPGSID>
+        public const string achievement_apple_collector = "CgkInPbDl8UaEAIQBQ"; // <GPGSID>
+        public const string achievement_knife_master = "CgkInPbDl8UaEAIQBA"; // <GPGSID>
+        public const string achievement_first_level = "CgkInPbDl8UaEAIQAg"; // <GPGSID>
 
 }
 
