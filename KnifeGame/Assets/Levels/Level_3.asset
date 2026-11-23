@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   knivesToThrow: 6
   rotation:
-  - speed: 150
+  - speed: 130
     duration: 2
   preStuckKnives: 3
   apples: 2
