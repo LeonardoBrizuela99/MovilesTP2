@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour
             {
                 Apple a = Instantiate(applePrefab);
                 log.Attach(a.transform, angle, log.AppleDistance);
+                a.transform.Rotate(0f, 0f, 180f);
                 spawnedApples.Add(a);
             }
         }
