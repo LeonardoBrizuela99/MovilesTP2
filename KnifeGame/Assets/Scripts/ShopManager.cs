@@ -22,6 +22,7 @@ public class ShopManager : MonoBehaviour
         }
 
         SaveSystem.Select(skin);
+        Debug.Log("Skin selected: " + skin.displayName);
         RefreshAll();
     }
 

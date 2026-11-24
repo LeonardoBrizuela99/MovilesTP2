@@ -8,11 +8,11 @@ public class TestBrizuelaLogger : MonoBehaviour
     AndroidJavaObject loggerManagerInstance;
     void Start()
     {
-        using var loggerClass = new AndroidJavaClass("com.example.brizuelalogger.BrizuelaLoggerManager");
-        loggerManagerInstance = loggerClass.CallStatic<AndroidJavaObject>("getInstance");
-        loggerManagerInstance.Call("sendLong", "Hola desde Unity");
-        long t = loggerManagerInstance.Call<long>("getTime");
-        Debug.Log($"Hora nativa: {t}");
+        //using var loggerClass = new AndroidJavaClass("com.example.brizuelalogger.BrizuelaLoggerManager");
+        //loggerManagerInstance = loggerClass.CallStatic<AndroidJavaObject>("getInstance");
+        ////loggerManagerInstance.Call("sendLong", "Hola desde Unity");
+        //long t = loggerManagerInstance.Call<long>("getTime");
+        //Debug.Log($"Hora nativa: {t}");
     }
     void OnDestroy() =>loggerManagerInstance?.Dispose();
 

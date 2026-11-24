@@ -72,6 +72,7 @@ public class KnifeThrower : MonoBehaviour
         if (Time.time - lastThrowTime < throwCooldown) return;
 
         currentKnife.Throw();
+        Debug.Log("Knife thrown");
         GameEvents.current.KnifeThrown();
         currentKnife = null;
         knivesLeft--;

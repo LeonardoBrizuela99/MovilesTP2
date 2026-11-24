@@ -11,5 +11,7 @@ public class Apple : MonoBehaviour
 
         GameEvents.current.AppleHit();
         gameObject.SetActive(false);
+
+        Debug.Log("Apple collected");
     }
 }

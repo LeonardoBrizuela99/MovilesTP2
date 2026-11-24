@@ -140,10 +140,12 @@ public class GameManager : MonoBehaviour
 
     class WonState : GameState
     {
+
         public WonState(GameManager gm) : base(gm) { }
 
         public override void Enter()
         {
+            Debug.Log("Level " + (gm.LevelIndex + 1) + " won");
             gm.thrower.StopThrowing();
             gm.log.Stop();
 
@@ -167,10 +169,12 @@ public class GameManager : MonoBehaviour
 
     class LostState : GameState
     {
+        
         public LostState(GameManager gm) : base(gm) { }
 
         public override void Enter()
         {
+            Debug.Log("Level lost");
             gm.thrower.StopThrowing();
             gm.log.Stop();
             gm.Vibrate();
