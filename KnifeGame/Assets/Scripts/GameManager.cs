@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Apple applePrefab;
     [SerializeField] float nextLevelDelay = 1.2f;
     [SerializeField] float loseRetryDelay = 3f;
+    [SerializeField] float backToMenuDelay = 3f;
 
     public int LevelIndex { get; private set; }
     public int Apples { get; private set; }
@@ -161,9 +162,15 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(gm.nextLevelDelay);
             if (next >= gm.levels.Length)
+            {
                 GameEvents.current.GameCompleted();
+                yield return new WaitForSeconds(gm.backToMenuDelay);
+                gm.GetComponent<SceneLoader>().LoadScene("MainMenu");
+            }
             else
+            {
                 gm.StartLevel(next);
+            }
         }
     }
 
@@ -184,7 +191,11 @@ public class GameManager : MonoBehaviour
 
         IEnumerator RetryAfterDelay()
         {
-            yield return new WaitForSeconds(gm.loseRetryDelay);
+            for (int s = Mathf.CeilToInt(gm.loseRetryDelay); s > 0; s--)
+            {
+                GameEvents.current.RetryCountdown(s);
+                yield return new WaitForSeconds(1f);
+            }
             gm.Retry();
         }
     }

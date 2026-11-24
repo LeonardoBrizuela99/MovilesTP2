@@ -15,6 +15,7 @@ public class GameEvents : MonoBehaviour
     public event Action OnLevelLost;
     public event Action OnGameCompleted;
     public event Action OnKnifeThrown;
+    public event Action<int> OnRetryCountdown;
 
     private void Awake()
     {
@@ -36,4 +37,5 @@ public class GameEvents : MonoBehaviour
     public void LevelLost() => OnLevelLost?.Invoke();
     public void GameCompleted() => OnGameCompleted?.Invoke();
     public void KnifeThrown() => OnKnifeThrown?.Invoke();
+    public void RetryCountdown(int seconds) => OnRetryCountdown?.Invoke(seconds);
 }

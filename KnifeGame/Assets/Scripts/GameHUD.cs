@@ -1,14 +1,14 @@
 using TMPro;
 using UnityEngine;
 
-
 public class GameHUD : MonoBehaviour
 {
     [SerializeField] TMP_Text knivesText;
     [SerializeField] TMP_Text applesText;
     [SerializeField] TMP_Text levelText;
-    [SerializeField] GameObject losePanel;      
-    [SerializeField] GameObject completedPanel; 
+    [SerializeField] GameObject losePanel;
+    [SerializeField] TMP_Text retryText;        
+    [SerializeField] GameObject completedPanel;
 
     private void Start()
     {
@@ -16,6 +16,7 @@ public class GameHUD : MonoBehaviour
         GameEvents.current.OnApplesChanged += UpdateApples;
         GameEvents.current.OnLevelStarted += LevelStarted;
         GameEvents.current.OnLevelLost += ShowLose;
+        GameEvents.current.OnRetryCountdown += UpdateCountdown;
         GameEvents.current.OnGameCompleted += ShowCompleted;
     }
 
@@ -26,6 +27,7 @@ public class GameHUD : MonoBehaviour
         GameEvents.current.OnApplesChanged -= UpdateApples;
         GameEvents.current.OnLevelStarted -= LevelStarted;
         GameEvents.current.OnLevelLost -= ShowLose;
+        GameEvents.current.OnRetryCountdown -= UpdateCountdown;
         GameEvents.current.OnGameCompleted -= ShowCompleted;
     }
 
@@ -34,11 +36,18 @@ public class GameHUD : MonoBehaviour
 
     void LevelStarted(int index)
     {
-        levelText.text = $"Nivel {index + 1}";
+        levelText.text = $"Level {index + 1}";
         losePanel.SetActive(false);
         completedPanel.SetActive(false);
     }
 
     void ShowLose() => losePanel.SetActive(true);
+
+    void UpdateCountdown(int seconds)
+    {
+        if (retryText != null)
+            retryText.text = $"Level restarting in {seconds}...";
+    }
+
     void ShowCompleted() => completedPanel.SetActive(true);
 }
